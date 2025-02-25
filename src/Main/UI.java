@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
+import javax.swing.text.JTextComponent;
 
 
 import static javax.swing.SwingConstants.HORIZONTAL;
@@ -35,6 +36,9 @@ public class UI extends JFrame{
     public void changeCostume(){
         if (costume < 4) {
             costume += 1;
+        }
+        if (costume > 3) {
+            gm.sChanger.showScreen5();
         }
     }
 
@@ -77,7 +81,6 @@ public class UI extends JFrame{
         bgPanel[bgNum].add(objectLabel);
         bgPanel[bgNum].moveToFront(objectLabel);
         objectMap.put(objectKey, objectLabel);
-
     }
 
     public void setObjectVisibility(String objectKey, boolean visible) {
@@ -86,6 +89,7 @@ public class UI extends JFrame{
             obj.setVisible(visible);
         }
         if (objectKey.equals("popup") && visible) {
+            bgPanel[3].moveToFront(obj);
             int keypadNumX = 260;
             int keypadNumY = 210;
             boolean isFirstTime = true;
@@ -179,6 +183,15 @@ public class UI extends JFrame{
         }
     }
 
+    public void setTextVisibility(String textKey, boolean visible) {
+        JTextArea textArea = textAreaMap.get(textKey);
+        if (textArea != null) {
+            textArea.setVisible(visible);
+        }
+    }
+
+    Map<String, JTextArea> textAreaMap = new HashMap<>();
+
     public void generateScene(){
         //SCREEN 1
         createBackground(1, "welcomeScreen.png");
@@ -192,16 +205,47 @@ public class UI extends JFrame{
         bgPanel[2].add(bgLabel[2]);
 
         //SCREEN 3
-
         createBackground(3,"gameBoard.png");
-        createImageButton(3,500,50,60,60,"drink.png","changeCostume", "item");
-        createImageButton(3,500,120,60,60,"tea.png","changeCostume", "item");
-        createImageButton(3,600,50,60,60,"pocky.png","changeCostume", "item");
-        createImageButton(3,600,120,60,60,"meal.png","changeCostume", "item");
+        createImageButton(3,500,50,60,60,"drink.png","drink", "drink");
+        JTextArea drinkLabel = new JTextArea("$100");
+        drinkLabel.setBounds(510,110,40,15);
+        drinkLabel.setEditable(false);
+        bgPanel[3].add(drinkLabel);
+        textAreaMap.put("drink", drinkLabel);
+        createImageButton(3,500,120,60,60,"tea.png","tea", "tea");
+        JTextArea teaLabel = new JTextArea("$200");
+        teaLabel.setBounds(510,180,40,15);
+        teaLabel.setEditable(false);
+        bgPanel[3].add(teaLabel);
+        textAreaMap.put("tea", teaLabel);
+        createImageButton(3,600,50,60,60,"pocky.png","pocky", "pocky");
+        JTextArea pockyLabel = new JTextArea("$500");
+        pockyLabel.setBounds(610,110,40,15);
+        pockyLabel.setEditable(false);
+        createImageButton(3,600,120,60,60,"meal.png","meal", "meal");
+        bgPanel[3].add(pockyLabel);
+        textAreaMap.put("pocky", pockyLabel);
+        JTextArea mealLabel = new JTextArea("$1000");
+        mealLabel.setBounds(610,180,40,15);
+        mealLabel.setEditable(false);
+        bgPanel[3].add(mealLabel);
+        textAreaMap.put("meal", mealLabel);
         createObject(3,290,150,150,150,"costume" + costume + ".png","", "creature");
         createButton(3, 100, 300, 75,45, "Roll Die.", "rollDie");
         createObject(3, 200,120, 300,200, "popupScreen.png", "popup", "popup");
-        playerWallet = new JTextArea("You currently have" + player.playersCash() + " dollars right now!");
+        int heartX = 500;
+        int heartY = 330;
+        int heartNum = 0;
+        for(int i = 0; i < 5; i++){
+            for(int j = 0; j < 2; j++){
+                createObject(3, heartX, heartY, 25, 25, "heart.png", "heart", "heart"+heartNum);
+                heartY += 30;
+                heartNum++;
+            }
+            heartY = 330;
+            heartX += 30;
+        }
+        playerWallet = new JTextArea("You currently have " + player.playersCash() + " dollars right now!");
         playerWallet.setBounds(320,350,80,40);
         playerWallet.setBackground(Color.pink);
         playerWallet.setForeground(Color.black);
@@ -212,15 +256,16 @@ public class UI extends JFrame{
         bgPanel[3].add(playerWallet);
         bgPanel[3].moveToFront(playerWallet);
         setObjectVisibility("popup", false);
-
         bgPanel[3].add(bgLabel[3]);
 
         //SCREEN 4
         createBackground(4,"losingScreen.png");
+        createButton(4,270, 390, 200,45, "Play Again!!", "goScene3");
+        bgPanel[4].add(bgLabel[4]);
 
         //SCREEN 5
         createBackground(5, "victoryScreen.png");
-
+        createButton(5, 270, 390, 200,45, "Play Again!!", "goScene3");
+        bgPanel[5].add(bgLabel[5]);
     }
-
 }

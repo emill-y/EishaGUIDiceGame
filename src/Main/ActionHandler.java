@@ -24,12 +24,16 @@ public class ActionHandler implements ActionListener {
             //Switch Scenes
             case "goScene1": gm.sChanger.showScreen1(); break;
             case "goScene2": gm.sChanger.showScreen2(); break;
-            case "goScene3": gm.sChanger.showScreen3(); break;
+            case "goScene3": gm.ev1.playGame(); break;
             case "goScene4": gm.sChanger.showScreen4(); break;
             case "goScene5": gm.sChanger.showScreen5(); break;
             case "changeCostume": gm.ev1.changeCostume(); break;
             case "number": gm.ev1.handleBet(tempCommand); break;
             case "enterBet": gm.ev1.submitBet(); break;
+            case "drink": gm.ev1.drink(); break;
+            case "tea": gm.ev1.tea(); break;
+            case "pocky": gm.ev1.pocky(); break;
+            case "meal": gm.ev1.meal(); break;
 
             default:
                 throw new IllegalStateException("Unexpected value: " + yourChoice);
