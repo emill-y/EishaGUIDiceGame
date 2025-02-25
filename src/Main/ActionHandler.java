@@ -14,11 +14,12 @@ public class ActionHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String yourChoice = e.getActionCommand();
-
+        String tempCommand = "";
+        if (yourChoice.indexOf("number") > -1) {
+            tempCommand = yourChoice;
+            yourChoice = "number";
+        }
         switch(yourChoice) {
-//            case "lookHut": gm.ev1.lookHut(); break;
-//            case "talkHut": gm.ev1.lookHut(); break;
-//            case "restHut": gm.ev1.lookHut(); break;
             case "rollDie": gm.ev1.rollDie(); break;
             //Switch Scenes
             case "goScene1": gm.sChanger.showScreen1(); break;
@@ -27,6 +28,11 @@ public class ActionHandler implements ActionListener {
             case "goScene4": gm.sChanger.showScreen4(); break;
             case "goScene5": gm.sChanger.showScreen5(); break;
             case "changeCostume": gm.ev1.changeCostume(); break;
+            case "number": gm.ev1.handleBet(tempCommand); break;
+            case "enterBet": gm.ev1.submitBet(); break;
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + yourChoice);
         }
     }
 }

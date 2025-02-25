@@ -17,9 +17,12 @@ public class UI extends JFrame{
     public JLayeredPane[] bgPanel = new JLayeredPane[10];
     public JLabel[] bgLabel = new JLabel[10];
     private int costume = 0;
+    public Player player;
+    public JTextArea playerWallet;
 
     public UI(GameManager gm){
         this.gm = gm;
+        this.player = new Player(this);
         createMainField();
         generateScene();
         window.setVisible(true);
@@ -42,15 +45,6 @@ public class UI extends JFrame{
         window.getContentPane().setBackground(Color.black);
         window.setLayout(null);
         window.setTitle("Growing Up Dice!!");
-
-        messageText = new JTextArea("Enter Bet.");
-        messageText.setBounds(350,100,100,45);
-        messageText.setBackground(Color.pink);
-        messageText.setForeground(Color.black);
-        messageText.setEditable(true);
-        messageText.setLineWrap(true);
-        messageText.setWrapStyleWord(true);
-        messageText.setFont(new Font("Title Font", Font.PLAIN, 10));
 
     }
 
@@ -91,6 +85,45 @@ public class UI extends JFrame{
         if (obj != null) {
             obj.setVisible(visible);
         }
+        if (objectKey.equals("popup") && visible) {
+            int keypadNumX = 260;
+            int keypadNumY = 210;
+            boolean isFirstTime = true;
+            for (int i = 0; i < 10; i++)
+            {
+                if(i > 4 && isFirstTime) {
+                    keypadNumY = 240;
+                    keypadNumX = 260;
+                    isFirstTime = false;
+                }
+                createButton(3,keypadNumX, keypadNumY , 20, 20, i+"", "number"+i);
+                setButtonVisibility("number"+i, visible);
+                keypadNumX +=40;
+            }
+            createButton(3,320,280, 80,20, "Enter Bet.", "enterBet");
+            messageText = new JTextArea("Enter Your Bet!");
+            messageText.setVisible(visible);
+            messageText.setBounds(320,150,80,20);
+            messageText.setBackground(Color.pink);
+            messageText.setForeground(Color.black);
+            messageText.setEditable(false);
+            messageText.setLineWrap(true);
+            messageText.setWrapStyleWord(true);
+            messageText.setFont(new Font("Title Font", Font.PLAIN, 10));
+            bgPanel[3].add(messageText);
+            bgPanel[3].moveToFront(messageText);
+            setButtonVisibility("enterBet", true);
+
+        }
+        else {
+            if (messageText != null){
+                messageText.setVisible(false);
+            }
+            for(int i = 0; i < 10; i++){
+                setButtonVisibility("number"+i, false);
+            }
+            setButtonVisibility("enterBet", false);
+        }
     }
 
     private Map<String, JButton> imageButtonMap = new HashMap<>();
@@ -116,7 +149,7 @@ public class UI extends JFrame{
     }
 
     public void setImageButtonVisibility(String itemKey, boolean visible) {
-        JLabel item = objectMap.get(itemKey);
+        JButton item = imageButtonMap.get(itemKey);
         if (item != null) {
             item.setVisible(visible);
         }
@@ -140,7 +173,7 @@ public class UI extends JFrame{
     }
 
     public void setButtonVisibility(String buttonKey, boolean visible) {
-        JLabel button = objectMap.get(buttonKey);
+        JButton button = buttonMap.get(buttonKey);
         if (button != null) {
             button.setVisible(visible);
         }
@@ -168,21 +201,17 @@ public class UI extends JFrame{
         createObject(3,290,150,150,150,"costume" + costume + ".png","", "creature");
         createButton(3, 100, 300, 75,45, "Roll Die.", "rollDie");
         createObject(3, 200,120, 300,200, "popupScreen.png", "popup", "popup");
+        playerWallet = new JTextArea("You currently have" + player.playersCash() + " dollars right now!");
+        playerWallet.setBounds(320,350,80,40);
+        playerWallet.setBackground(Color.pink);
+        playerWallet.setForeground(Color.black);
+        playerWallet.setEditable(false);
+        playerWallet.setLineWrap(true);
+        playerWallet.setWrapStyleWord(true);
+        playerWallet.setFont(new Font("Title Font", Font.PLAIN, 10));
+        bgPanel[3].add(playerWallet);
+        bgPanel[3].moveToFront(playerWallet);
         setObjectVisibility("popup", false);
-        int keypadNumX = 260;
-        int keypadNumY = 230;
-        boolean isFirstTime = true;
-        for (int i = 0; i < 10; i++)
-        {
-            if(i > 4 && isFirstTime) {
-                keypadNumY = 270;
-                keypadNumX = 260;
-                isFirstTime = false;
-            }
-            createButton(3,keypadNumX, keypadNumY , 20, 20, i+"", "keypadNum");
-            setButtonVisibility("keypadNum", false);
-            keypadNumX +=40;
-        }
 
         bgPanel[3].add(bgLabel[3]);
 
