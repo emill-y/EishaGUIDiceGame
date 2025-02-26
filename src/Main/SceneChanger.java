@@ -1,50 +1,56 @@
 package Main;
 
+// Allow For Scenes to Change
 public class SceneChanger {
 
-    private GameManager gm;
+    private UI ui;
 
     public SceneChanger(GameManager gm){
-        this.gm = gm;
+        this.ui = gm.getUi();
     }
 
+    // Display Scene 1 - Welcome Screen
     public void showScreen1(){
-        gm.ui.bgPanel[1].setVisible(true);
-        gm.ui.bgPanel[2].setVisible(false);
-        gm.ui.bgPanel[3].setVisible(false);
-        gm.ui.bgPanel[4].setVisible(false);
-        gm.ui.bgPanel[5].setVisible(false);
+        ui.getBgPanel()[1].setVisible(true);
+        ui.getBgPanel()[2].setVisible(false);
+        ui.getBgPanel()[3].setVisible(false);
+        ui.getBgPanel()[4].setVisible(false);
+        ui.getBgPanel()[5].setVisible(false);
     }
-
+    
+    // Display Scene 2 - Instructions Screen
     public void showScreen2(){
-        gm.ui.bgPanel[1].setVisible(false);
-        gm.ui.bgPanel[3].setVisible(false);
-        gm.ui.bgPanel[2].setVisible(true);
-        gm.ui.bgPanel[4].setVisible(false);
-        gm.ui.bgPanel[5].setVisible(false);
+        ui.getBgPanel()[1].setVisible(false);
+        ui.getBgPanel()[3].setVisible(false);
+        ui.getBgPanel()[2].setVisible(true);
+        ui.getBgPanel()[4].setVisible(false);
+        ui.getBgPanel()[5].setVisible(false);
     }
-
+    
+    // Display Scene 3 - Game Board
     public void showScreen3(){
-        gm.ui.bgPanel[1].setVisible(false);
-        gm.ui.bgPanel[2].setVisible(false);
-        gm.ui.bgPanel[3].setVisible(true);
-        gm.ui.bgPanel[4].setVisible(false);
-        gm.ui.bgPanel[5].setVisible(false);
+        ui.getBgPanel()[1].setVisible(false);
+        ui.getBgPanel()[2].setVisible(false);
+        ui.getBgPanel()[3].setVisible(true);
+        ui.getBgPanel()[4].setVisible(false);
+        ui.getBgPanel()[5].setVisible(false);
     }
-
+    
+    // Display Scene 4 - Losing Screen
     public void showScreen4(){
-        gm.ui.bgPanel[1].setVisible(false);
-        gm.ui.bgPanel[2].setVisible(false);
-        gm.ui.bgPanel[3].setVisible(false);
-        gm.ui.bgPanel[4].setVisible(true);
-        gm.ui.bgPanel[5].setVisible(false);
+        ui.getBgPanel()[1].setVisible(false);
+        ui.getBgPanel()[2].setVisible(false);
+        ui.getBgPanel()[3].setVisible(false);
+        ui.getBgPanel()[4].setVisible(true);
+        ui.getBgPanel()[5].setVisible(false);
     }
-
+    
+    // Display Scene 5 - Victory Screen
     public void showScreen5(){
-        gm.ui.bgPanel[1].setVisible(false);
-        gm.ui.bgPanel[2].setVisible(false);
-        gm.ui.bgPanel[3].setVisible(false);
-        gm.ui.bgPanel[4].setVisible(false);
-        gm.ui.bgPanel[5].setVisible(true);
+        ui.getBgPanel()[1].setVisible(false);
+        ui.getBgPanel()[2].setVisible(false);
+        ui.getBgPanel()[3].setVisible(false);
+        ui.getBgPanel()[4].setVisible(false);
+        ui.getBgPanel()[5].setVisible(true);
     }
 }

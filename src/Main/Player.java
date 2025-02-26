@@ -2,48 +2,19 @@ package Main;
 
 public class Player {
 
-    //instance variables
-    private String playerName;
-    public int playerCash;
-    public int playerLevel;
-    private UI ui;
-
-    //constructor
-    public Player(String playerName, int playerCash, int level, UI ui) {
-        this.playerName = playerName;
+    public void setPlayerCash(int playerCash) {
         this.playerCash = playerCash;
-        playerLevel = level;
-        this.ui = ui;
     }
+
+    //instance variables
+    private int playerCash;
 
     //default constructor
-    public Player(UI ui) {
-        this.playerName = "Guest Player.";
+    public Player() {
         this.playerCash = 100;
-        playerLevel = 1;
-        this.ui = ui;
-    }
-
-    //starting game constructor
-    public Player(String playerName, int level, UI ui) {
-        this.ui = ui;
-        if (playerName.length() < 1) {
-            this.playerName = "Guest Player";
-        }
-        else {
-            this.playerName = playerName;
-        }
-        this.playerCash = 100;
-        playerLevel = level;
     }
 
     //Individual Methods
-
-    //returns the players level
-    public int playerLevel(){
-        return playerLevel;
-    }
-
     //returns the amount of cash the player has
     public int playersCash(){
         return playerCash;
@@ -60,44 +31,5 @@ public class Player {
         playerCash = playerCash - moneyLost;
         return playerCash;
     }
-
-    //checks if the player has won or lost the game
-    public boolean stillPlaying() {
-
-        boolean stillPlaying = false;
-
-        if (playerCash > 0 && playerCash <= 1000) {
-            stillPlaying = true;
-        }
-
-        return stillPlaying;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
