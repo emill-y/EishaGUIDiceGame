@@ -49,6 +49,8 @@ public class Event01 {
         ui.setImageButtonVisibility("tea", true);
         ui.setImageButtonVisibility("pocky", true);
         ui.setImageButtonVisibility("meal", true);
+        ui.setResultsText("Your Roll's Result's will appear Here!");
+        ui.getResultsText().setBackground(Color.lightGray);
         // Go to Game Screen.
         gm.getsChanger().showScreen3();
     }
